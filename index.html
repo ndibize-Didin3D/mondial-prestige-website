@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MONDIAL PRESTIGE - Mobilier de Bureau et de Maison</title>
+    <!-- Chargement de Tailwind CSS pour un design responsive et moderne -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chargement des icônes Font Awesome pour un style plus riche -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* Définition des couleurs principales de la marque */
+      :root {
+        --color-primary: #1e40af; /* Bleu foncé fort */
+        --color-secondary: #3b82f6; /* Bleu clair pour l'accent */
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #ffffff;
+        color: #1f2937;
+      }
+
+      /* Style spécifique pour les icônes de la section Services (Font Awesome) */
+      .service-icon {
+        color: var(--color-primary);
+        font-size: 3rem; /* Agrandissement de l'icône */
+        margin-bottom: 1rem;
+        display: inline-block;
+      }
+
+      /* Style du bouton flottant WhatsApp */
+      .floating-btn {
+        position: fixed;
+        bottom: 2rem;
+        left: 2rem;
+        z-index: 50;
+        background-color: #25d366; /* Couleur WhatsApp */
+        color: white;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        transition: transform 0.2s;
+      }
+
+      .floating-btn:hover {
+        transform: scale(1.05);
+      }
+
+      /* Pour définir la largeur des diapositives du carrousel */
+      #carousel-items {
+        will-change: transform;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 antialiased">
+    <!-- Bouton flottant WhatsApp -->
+    <a
+      href="https://wa.me/XXXXXXXXXX"
+      target="_blank"
+      class="floating-btn p-4 rounded-full flex items-center justify-center"
+      aria-label="Contactez-nous via WhatsApp"
+    >
+      <i class="fab fa-whatsapp text-2xl"></i>
+    </a>
+
+    <!-- 1. Barre de Navigation (Header) -->
+    <header class="bg-blue-800 shadow-lg sticky top-0 z-40" id="main-header">
+      <div
+        class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center"
+      >
+        <!-- Logo de la Marque -->
+        <div class="flex items-center space-x-2">
+          <img
+            src="Logo.png"
+            alt="Logo MONDIAL PRESTIGE"
+            class="w-10 h-10 object-contain rounded-full bg-white p-1"
+            onerror="this.onerror=null; this.src='https://placehold.co/40x40/1e40af/ffffff?text=Logo';"
+          />
+          <span class="text-white text-xl font-bold">MONDIAL PRESTIGE</span>
+        </div>
+
+        <!-- Menu de Navigation (Desktop) -->
+        <nav class="hidden md:flex space-x-6 text-white text-lg">
+          <a href="#home" class="hover:text-blue-300 transition-colors"
+            >Accueil</a
+          >
+          <a href="#services" class="hover:text-blue-300 transition-colors"
+            >Services</a
+          >
+          <a href="#products" class="hover:text-blue-300 transition-colors"
+            >Produits</a
+          >
+          <a href="#projects" class="hover:text-blue-300 transition-colors"
+            >Projets</a
+          >
+          <a href="#contact" class="hover:text-blue-300 transition-colors"
+            >Contact</a
+          >
+        </nav>
+
+        <!-- Bouton Menu Mobile -->
+        <button
+          id="mobile-menu-btn"
+          class="md:hidden text-white hover:text-blue-300 transition-colors focus:outline-none"
+          aria-label="Menu de navigation"
+        >
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+      </div>
+
+      <!-- Menu Mobile (Caché par défaut) -->
+      <nav
+        id="mobile-menu"
+        class="md:hidden absolute top-full left-0 w-full bg-blue-700 transform transition-transform duration-300 -translate-y-full"
+      >
+        <div class="flex flex-col space-y-2 p-4 text-white">
+          <a
+            href="#home"
+            class="hover:bg-blue-600 px-3 py-2 rounded-lg transition-colors"
+            >Accueil</a
+          >
+          <a
+            href="#services"
+            class="hover:bg-blue-600 px-3 py-2 rounded-lg transition-colors"
+            >Services</a
+          >
+          <a
+            href="#products"
+            class="hover:bg-blue-600 px-3 py-2 rounded-lg transition-colors"
+            >Produits</a
+          >
+          <a
+            href="#projects"
+            class="hover:bg-blue-600 px-3 py-2 rounded-lg transition-colors"
+            >Projets</a
+          >
+          <a
+            href="#contact"
+            class="hover:bg-blue-600 px-3 py-2 rounded-lg transition-colors"
+            >Contact</a
+          >
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <!-- 2. Section Carrousel Héro -->
+      <section id="home" class="relative overflow-hidden bg-gray-100">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div
+            id="carousel"
+            class="relative w-full max-w-6xl mx-auto rounded-xl shadow-2xl overflow-hidden"
+          >
+            <!-- Conteneur des éléments du carrousel -->
+            <div
+              id="carousel-items"
+              class="flex transition-transform duration-700 ease-in-out"
+              style="transform: translateX(0)"
+            >
+              <!-- Slide 1: Créez l'Espace de Travail Idéal (Vue 5) -->
+              <div class="carousel-item flex-shrink-0 w-full relative">
+                <img
+                  src="Vue 3.jpg"
+                  alt="Créer l'espace de travail idéal"
+                  class="w-full h-96 object-cover rounded-xl shadow-lg"
+                  onerror="this.onerror=null; this.src='https://placehold.co/1200x600/1e40af/ffffff?text=Espace+de+Travail+Idéal';"
+                />
+                <div
+                  class="absolute inset-0 bg-black/30 rounded-xl flex items-center justify-center"
+                >
+                  <p class="text-white text-3xl font-bold text-center p-4">
+                    Créez l'Espace de Travail Idéal
+                  </p>
+                </div>
+              </div>
+
+              <!-- Slide 2: L'Art de la Réunion (Vue 2) -->
+              <div class="carousel-item flex-shrink-0 w-full relative">
+                <img
+                  src="Table Reunion 1.jpg"
+                  alt="L'Art de la Réunion"
+                  class="w-full h-96 object-cover rounded-xl shadow-lg"
+                  onerror="this.onerror=null; this.src='https://placehold.co/1200x600/10b981/ffffff?text=L\'Art+de+la+Réunion';"
+                />
+                <div
+                  class="absolute inset-0 bg-black/30 rounded-xl flex items-center justify-center"
+                >
+                  <p class="text-white text-3xl font-bold text-center p-4">
+                    L'Art de la Réunion
+                  </p>
+                </div>
+              </div>
+
+              <!-- Slide 3: Confort et Élégance pour la Maison (Vue 3) -->
+              <div class="carousel-item flex-shrink-0 w-full relative">
+                <img
+                  src="Vue 2.jpg"
+                  alt="Mobilier de maison contemporain"
+                  class="w-full h-96 object-cover rounded-xl shadow-lg"
+                  onerror="this.onerror=null; this.src='https://placehold.co/1200x600/f59e0b/ffffff?text=Mobilier+Maison+Contemporain';"
+                />
+                <div
+                  class="absolute inset-0 bg-black/30 rounded-xl flex items-center justify-center"
+                >
+                  <p class="text-white text-3xl font-bold text-center p-4">
+                    Confort et Élégance pour la Maison
+                  </p>
+                </div>
+              </div>
+
+              <!-- Slide 4: Votre Projet, Notre Expertise (Table Reunion 1) -->
+              <div class="carousel-item flex-shrink-0 w-full relative">
+                <img
+                  src="Vue 5.jpg"
+                  alt="Design et Projets personnalisés"
+                  class="w-full h-96 object-cover rounded-xl shadow-lg"
+                  onerror="this.onerror=null; this.src='https://placehold.co/1200x600/ef4444/ffffff?text=Projet+Personnalisé';"
+                />
+                <div
+                  class="absolute inset-0 bg-black/30 rounded-xl flex items-center justify-center"
+                >
+                  <p class="text-white text-3xl font-bold text-center p-4">
+                    Votre Projet, Notre Expertise
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Boutons de navigation -->
+            <button
+              id="prev-btn"
+              class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white/50 hover:bg-white/70 text-gray-800 p-3 rounded-full shadow-md transition-colors"
+            >
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button
+              id="next-btn"
+              class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white/50 hover:bg-white/70 text-gray-800 p-3 rounded-full shadow-md transition-colors"
+            >
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Section Notre Histoire (About Us) -->
+      <section id="about" class="py-16 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="max-w-4xl mx-auto text-center">
+            <h2
+              class="text-4xl font-extrabold text-blue-900 mb-4 border-b-4 border-blue-500 inline-block pb-1"
+            >
+              Notre Histoire
+            </h2>
+            <p class="text-gray-600 text-lg mb-8">
+              "MONDIAL PRESTIGE" est votre destination de choix pour le mobilier
+              de bureau et de maison de luxe. Nous croyons que votre
+              environnement doit refléter votre ambition et votre confort.
+              Depuis notre création, nous nous engageons à offrir des designs
+              uniques et une qualité inégalée, faisant de nous le partenaire
+              privilégié des entreprises et des particuliers en quête
+              d'excellence.
+            </p>
+            <a
+              href="#contact"
+              class="bg-blue-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-blue-700 transition-colors duration-300 transform hover:scale-105"
+              >Découvrez notre collection</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Section Nos Services (Services) -->
+      <section id="services" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 class="text-3xl font-bold text-center text-blue-900 mb-12">
+            Que proposons-nous ?
+          </h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <!-- Carte Service 1 -->
+            <div
+              class="bg-white p-8 rounded-xl shadow-lg text-center transition duration-300 hover:shadow-xl hover:scale-[1.02]"
+            >
+              <!-- Remplacement de l'icône Lucide par Font Awesome -->
+              <i class="service-icon fas fa-building mb-4"></i>
+              <h3 class="text-xl font-semibold text-gray-800 mb-3">
+                Aménagement de Bureaux
+              </h3>
+              <p class="text-gray-500">
+                Solutions complètes pour bureaux exécutifs, salles de réunion et
+                postes de travail collaboratifs.
+              </p>
+            </div>
+
+            <!-- Carte Service 2 -->
+            <div
+              class="bg-white p-8 rounded-xl shadow-lg text-center transition duration-300 hover:shadow-xl hover:scale-[1.02]"
+            >
+              <!-- Remplacement de l'icône Lucide par Font Awesome -->
+              <i class="service-icon fas fa-couch mb-4"></i>
+              <h3 class="text-xl font-semibold text-gray-800 mb-3">
+                Mobilier de Maison
+              </h3>
+              <p class="text-gray-500">
+                Designs modernes et classiques pour salons, salles à manger et
+                chambres à coucher luxueuses.
+              </p>
+            </div>
+
+            <!-- Carte Service 3 -->
+            <div
+              class="bg-white p-8 rounded-xl shadow-lg text-center transition duration-300 hover:shadow-xl hover:scale-[1.02]"
+            >
+              <!-- Remplacement de l'icône Lucide par Font Awesome -->
+              <i class="service-icon fas fa-palette mb-4"></i>
+              <h3 class="text-xl font-semibold text-gray-800 mb-3">
+                Design Intérieur
+              </h3>
+              <p class="text-gray-500">
+                Services de design intérieur professionnels pour garantir une
+                harmonie parfaite entre le mobilier et la décoration.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Section Nos Derniers Projets (Projects) -->
+      <section id="projects" class="py-16 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 class="text-3xl font-bold text-center text-blue-900 mb-12">
+            Nos Derniers Projets
+          </h2>
+
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
+          >
+            <!-- Carte Projet 1: Bureau Administratif (Vue 2) -->
+            <div class="bg-white rounded-xl shadow-xl overflow-hidden">
+              <img
+                src="Bureau_1.png"
+                alt="Aménagement de bureaux administratifs"
+                class="w-full h-48 object-cover transition duration-300 hover:scale-105"
+                onerror="this.onerror=null; this.src='https://placehold.co/600x400/1e40af/ffffff?text=Projet+1';"
+              />
+              <div class="p-4">
+                <h3 class="text-xl font-semibold text-gray-800">Bureaux</h3>
+                <p class="text-gray-500 mt-1">Conception et réalisation.</p>
+              </div>
+            </div>
+
+            <!-- Carte Projet 2: Hôtellerie (Vue 3) -->
+            <div class="bg-white rounded-xl shadow-xl overflow-hidden">
+              <img
+                src="Chaise 1.jpg"
+                alt="Mobilier hôtelier"
+                class="w-full h-48 object-cover transition duration-300 hover:scale-105"
+                onerror="this.onerror=null; this.src='https://placehold.co/600x400/3b82f6/ffffff?text=Projet+2';"
+              />
+              <div class="p-4">
+                <h3 class="text-xl font-semibold text-gray-800">Chaises</h3>
+                <p class="text-gray-500 mt-1">
+                  Fourniture de mobilier pour les Bureaux.
+                </p>
+              </div>
+            </div>
+
+            <!-- Carte Projet 3: Résidence de Luxe (Table Reunion 1) -->
+            <div class="bg-white rounded-xl shadow-xl overflow-hidden">
+              <img
+                src="Table Reunion 1.jpg"
+                alt="Aménagement résidentiel"
+                class="w-full h-48 object-cover transition duration-300 hover:scale-105"
+                onerror="this.onerror=null; this.src='https://placehold.co/600x400/10b981/ffffff?text=Projet+3';"
+              />
+              <div class="p-4">
+                <h3 class="text-xl font-semibold text-gray-800">
+                  Tables Reunions
+                </h3>
+                <p class="text-gray-500 mt-1">
+                  Designs intérieurs modernes et confortables pour des salles
+                  des reunions.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center mt-12">
+            <a
+              href="#"
+              class="bg-blue-500 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-blue-600 transition-colors duration-300 transform hover:scale-105"
+              >Voir tous les projets</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. Section Contactez-nous (Contact) -->
+      <section id="contact" class="py-16 bg-blue-900 text-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <!-- Coordonnées -->
+            <div class="md:col-span-1">
+              <h3 class="text-3xl font-bold mb-6">Contactez-nous</h3>
+              <p class="flex items-center mb-4">
+                <i class="fas fa-map-marker-alt w-5 h-5 mr-3 text-blue-400"></i>
+                Adresse : Z.I de Stoueli, Route de Ouled Fayet-Staoueli-Alger
+              </p>
+              <p class="flex items-center mb-4">
+                <i class="fas fa-envelope w-5 h-5 mr-3 text-blue-400"></i>
+                E-mail : mondialprestige@gmail.com
+              </p>
+              <p class="flex items-center mb-4">
+                <i class="fas fa-phone w-5 h-5 mr-3 text-blue-400"></i>
+                Téléphone : +213 (23) 20 91 19/23
+              </p>
+            </div>
+
+            <!-- Formulaire de Contact -->
+            <div class="md:col-span-2">
+              <h3 class="text-3xl font-bold mb-6">Envoyez-nous un message</h3>
+              <form action="#" method="POST" class="space-y-4">
+                <div>
+                  <input
+                    type="text"
+                    placeholder="Nom complet"
+                    required
+                    class="w-full p-3 rounded-lg bg-blue-800 border border-blue-700 placeholder-blue-300 text-white focus:ring-blue-500 focus:border-blue-500"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="email"
+                    placeholder="Votre e-mail"
+                    required
+                    class="w-full p-3 rounded-lg bg-blue-800 border border-blue-700 placeholder-blue-300 text-white focus:ring-blue-500 focus:border-blue-500"
+                  />
+                </div>
+                <div>
+                  <textarea
+                    placeholder="Votre message"
+                    rows="4"
+                    required
+                    class="w-full p-3 rounded-lg bg-blue-800 border border-blue-700 placeholder-blue-300 text-white focus:ring-blue-500 focus:border-blue-500"
+                  ></textarea>
+                </div>
+                <button
+                  type="submit"
+                  class="bg-blue-500 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-blue-600 transition-colors duration-300 transform hover:scale-105"
+                >
+                  Envoyer le message
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- 7. Pied de Page (Footer) -->
+    <footer class="bg-gray-800 text-white py-8">
+      <div
+        class="container mx-auto px-4 sm:px-6 lg:px-8 text-center border-t border-gray-700 pt-4"
+      >
+        <p>
+          &copy; 2025 MONDIAL PRESTIGE. Tous droits réservés. | Conçu avec
+          fierté. | Designed By Zebiri Badreddine
+        </p>
+      </div>
+    </footer>
+
+    <!-- JavaScript pour la fonctionnalité du menu et du carrousel -->
+    <script>
+      // 1. Initialisation du menu mobile
+      function initializeMobileMenu() {
+        const menuBtn = document.getElementById("mobile-menu-btn");
+        const mobileMenu = document.getElementById("mobile-menu");
+        const header = document.getElementById("main-header");
+        let isOpen = false;
+
+        function toggleMenu() {
+          isOpen = !isOpen;
+          if (isOpen) {
+            mobileMenu.classList.remove("-translate-y-full");
+            mobileMenu.classList.add("translate-y-0");
+            // Ajuster la hauteur pour ne pas dépasser le bas de l'écran
+            mobileMenu.style.maxHeight = `calc(100vh - ${header.offsetHeight}px)`;
+            mobileMenu.style.overflowY = "auto";
+          } else {
+            mobileMenu.classList.remove("translate-y-0");
+            mobileMenu.classList.add("-translate-y-full");
+            mobileMenu.style.overflowY = "hidden";
+          }
+        }
+
+        menuBtn.addEventListener("click", toggleMenu);
+
+        // Fermer le menu lors du clic sur un lien
+        document.querySelectorAll("#mobile-menu a").forEach((link) => {
+          link.addEventListener("click", () => {
+            if (isOpen) {
+              toggleMenu();
+            }
+          });
+        });
+      }
+
+      // 2. Initialisation du Carrousel
+      function initializeCarousel() {
+        const carousel = document.getElementById("carousel");
+        const itemsContainer = document.getElementById("carousel-items");
+        const prevBtn = document.getElementById("prev-btn");
+        const nextBtn = document.getElementById("next-btn");
+
+        if (!carousel) return;
+
+        const items = document.querySelectorAll(".carousel-item");
+        const totalItems = items.length;
+        let currentIndex = 0;
+        const slideDuration = 5000; // 5 secondes
+        let intervalId;
+
+        // 1. Mise à jour du carrousel (Translation)
+        function updateCarousel() {
+          const offset = -currentIndex * 100;
+          itemsContainer.style.transform = `translateX(${offset}%)`;
+        }
+
+        // 2. Aller à une diapositive spécifique
+        function goToSlide(index) {
+          currentIndex = (index + totalItems) % totalItems;
+          updateCarousel();
+          resetAutoSlide();
+        }
+
+        // 3. Diapositive suivante
+        function nextSlide() {
+          goToSlide(currentIndex + 1);
+        }
+
+        // 4. Diapositive précédente
+        function prevSlide() {
+          goToSlide(currentIndex - 1);
+        }
+
+        // 5. Contrôle du défilement automatique
+        function startAutoSlide() {
+          intervalId = setInterval(nextSlide, slideDuration);
+        }
+
+        function resetAutoSlide() {
+          clearInterval(intervalId);
+          startAutoSlide();
+        }
+
+        // 6. Ajout des écouteurs d'événements
+        nextBtn.addEventListener("click", nextSlide);
+        prevBtn.addEventListener("click", prevSlide);
+
+        // Démarrer l'auto-défilement
+        startAutoSlide();
+
+        // Arrêter l'auto-défilement lors de l'interaction
+        carousel.addEventListener("mouseenter", () =>
+          clearInterval(intervalId)
+        );
+        carousel.addEventListener("mouseleave", resetAutoSlide);
+      }
+
+      // Initialiser tous les composants au chargement de la page
+      window.onload = function () {
+        initializeMobileMenu();
+        initializeCarousel();
+      };
+    </script>
+  </body>
+</html>
