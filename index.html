@@ -17,6 +17,11 @@
     />
 
     <style>
+      /* Activation du défilement fluide au niveau du navigateur */
+      html {
+        scroll-behavior: smooth;
+      }
+
       /* Définition des couleurs principales de la marque */
       :root {
         --color-primary: #1e40af; /* Bleu foncé fort */
@@ -58,6 +63,29 @@
       #carousel-items {
         will-change: transform;
       }
+
+      /* فئة CSS الجديدة لإخفاء العناصر مع إضافة حركة سلسة (Fade In) */
+      .hidden-product {
+        display: none;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+      }
+      /* فئة الإظهار */
+      .visible-product {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* تخصيص مؤشر الفأرة للبطاقة الرئيسية لتبدو قابلة للنقر */
+      .main-product-card img {
+        cursor: pointer;
+        transition: filter 0.3s;
+      }
+      .main-product-card img:hover {
+        filter: brightness(0.9); /* تعتيم خفيف عند المرور */
+      }
     </style>
   </head>
   <body class="bg-gray-50 antialiased">
@@ -78,6 +106,7 @@
       >
         <!-- Logo de la Marque -->
         <div class="flex items-center space-x-2">
+          <!-- Chemin de l'image: il est supposé être dans le même dossier (chemin conservé à votre demande) -->
           <img
             src="Logo.png"
             alt="Logo MONDIAL PRESTIGE"
@@ -167,6 +196,7 @@
             >
               <!-- Slide 1: Créez l'Espace de Travail Idéal (Vue 5) -->
               <div class="carousel-item flex-shrink-0 w-full relative">
+                <!-- Chemin de l'image: conservé -->
                 <img
                   src="Vue 3.jpg"
                   alt="Créer l'espace de travail idéal"
@@ -184,6 +214,7 @@
 
               <!-- Slide 2: L'Art de la Réunion (Vue 2) -->
               <div class="carousel-item flex-shrink-0 w-full relative">
+                <!-- Chemin de l'image: conservé -->
                 <img
                   src="Table Reunion 1.jpg"
                   alt="L'Art de la Réunion"
@@ -201,8 +232,9 @@
 
               <!-- Slide 3: Confort et Élégance pour la Maison (Vue 3) -->
               <div class="carousel-item flex-shrink-0 w-full relative">
+                <!-- Chemin de l'image: conservé -->
                 <img
-                  src="Vue 2.jpg"
+                  src="Vue 5.jpg"
                   alt="Mobilier de maison contemporain"
                   class="w-full h-96 object-cover rounded-xl shadow-lg"
                   onerror="this.onerror=null; this.src='https://placehold.co/1200x600/f59e0b/ffffff?text=Mobilier+Maison+Contemporain';"
@@ -218,8 +250,9 @@
 
               <!-- Slide 4: Votre Projet, Notre Expertise (Table Reunion 1) -->
               <div class="carousel-item flex-shrink-0 w-full relative">
+                <!-- Chemin de l'image: conservé -->
                 <img
-                  src="Vue 5.jpg"
+                  src="Vue 2.jpg"
                   alt="Design et Projets personnalisés"
                   class="w-full h-96 object-cover rounded-xl shadow-lg"
                   onerror="this.onerror=null; this.src='https://placehold.co/1200x600/ef4444/ffffff?text=Projet+Personnalisé';"
@@ -290,7 +323,7 @@
             <div
               class="bg-white p-8 rounded-xl shadow-lg text-center transition duration-300 hover:shadow-xl hover:scale-[1.02]"
             >
-              <!-- Remplacement de l'icône Lucide par Font Awesome -->
+              <!-- Remplacement de l'icône (précédente) par Font Awesome -->
               <i class="service-icon fas fa-building mb-4"></i>
               <h3 class="text-xl font-semibold text-gray-800 mb-3">
                 Aménagement de Bureaux
@@ -305,7 +338,7 @@
             <div
               class="bg-white p-8 rounded-xl shadow-lg text-center transition duration-300 hover:shadow-xl hover:scale-[1.02]"
             >
-              <!-- Remplacement de l'icône Lucide par Font Awesome -->
+              <!-- Remplacement de l'icône (précédente) par Font Awesome -->
               <i class="service-icon fas fa-couch mb-4"></i>
               <h3 class="text-xl font-semibold text-gray-800 mb-3">
                 Mobilier de Maison
@@ -320,7 +353,7 @@
             <div
               class="bg-white p-8 rounded-xl shadow-lg text-center transition duration-300 hover:shadow-xl hover:scale-[1.02]"
             >
-              <!-- Remplacement de l'icône Lucide par Font Awesome -->
+              <!-- Remplacement de l'icône (précédente) par Font Awesome -->
               <i class="service-icon fas fa-palette mb-4"></i>
               <h3 class="text-xl font-semibold text-gray-800 mb-3">
                 Design Intérieur
@@ -334,61 +367,384 @@
         </div>
       </section>
 
-      <!-- 5. Section Nos Derniers Projets (Projects) -->
-      <section id="projects" class="py-16 bg-white">
+      <!-- 5. Section Nos Produits (Mobilier de Bureau et de Maison) -->
+      <section id="products" class="py-16 bg-white">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
           <h2 class="text-3xl font-bold text-center text-blue-900 mb-12">
-            Nos Derniers Projets
+            Nos Produits
           </h2>
 
-          <div
-            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
+          <!-- ****************************** -->
+          <!-- Catégorie 1: Mobilier de Bureau -->
+          <!-- ****************************** -->
+          <h3
+            class="text-2xl font-bold text-blue-700 mb-6 border-b-2 border-blue-200 pb-2 flex items-center max-w-7xl mx-auto"
           >
-            <!-- Carte Projet 1: Bureau Administratif (Vue 2) -->
-            <div class="bg-white rounded-xl shadow-xl overflow-hidden">
+            <i class="fas fa-briefcase mr-3 text-2xl"></i> Mobilier de Bureau
+          </h3>
+
+          <div
+            id="office-products-grid"
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto mb-16"
+          >
+            <!-- Produit 1.1: Bureaux Exécutifs (MAIN CARD) -->
+            <div
+              id="office-main-card"
+              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.02]"
+            >
               <img
                 src="Bureau_1.png"
-                alt="Aménagement de bureaux administratifs"
-                class="w-full h-48 object-cover transition duration-300 hover:scale-105"
-                onerror="this.onerror=null; this.src='https://placehold.co/600x400/1e40af/ffffff?text=Projet+1';"
+                alt="Bureaux Exécutifs de luxe. Cliquez pour voir plus."
+                class="w-full h-48 object-cover"
+                onerror="this.onerror=null; this.src='https://placehold.co/600x400/1e40af/ffffff?text=Bureau+Executif';"
               />
               <div class="p-4">
-                <h3 class="text-xl font-semibold text-gray-800">Bureaux</h3>
-                <p class="text-gray-500 mt-1">Conception et réalisation.</p>
-              </div>
-            </div>
-
-            <!-- Carte Projet 2: Hôtellerie (Vue 3) -->
-            <div class="bg-white rounded-xl shadow-xl overflow-hidden">
-              <img
-                src="Chaise 1.jpg"
-                alt="Mobilier hôtelier"
-                class="w-full h-48 object-cover transition duration-300 hover:scale-105"
-                onerror="this.onerror=null; this.src='https://placehold.co/600x400/3b82f6/ffffff?text=Projet+2';"
-              />
-              <div class="p-4">
-                <h3 class="text-xl font-semibold text-gray-800">Chaises</h3>
-                <p class="text-gray-500 mt-1">
-                  Fourniture de mobilier pour les Bureaux.
+                <h4 class="text-xl font-semibold text-gray-800">
+                  Bureaux Exécutifs
+                </h4>
+                <p id="office-description" class="text-gray-500 mt-1">
+                  Designs exécutifs luxueux et matériaux de haute qualité pour
+                  un environnement de travail optimal. (Cliquez sur l'image pour
+                  voir plus)
                 </p>
               </div>
             </div>
 
-            <!-- Carte Projet 3: Résidence de Luxe (Table Reunion 1) -->
-            <div class="bg-white rounded-xl shadow-xl overflow-hidden">
+            <!-- Produit 1.2: Tables de Réunion (Hidden Extra 1) -->
+            <div
+              id="office-extra-1"
+              class="hidden-product bg-white rounded-xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.02]"
+            >
               <img
                 src="Table Reunion 1.jpg"
-                alt="Aménagement résidentiel"
-                class="w-full h-48 object-cover transition duration-300 hover:scale-105"
-                onerror="this.onerror=null; this.src='https://placehold.co/600x400/10b981/ffffff?text=Projet+3';"
+                alt="Tables de Réunion modernes"
+                class="w-full h-48 object-cover"
+                onerror="this.onerror=null; this.src='https://placehold.co/600x400/3b82f6/ffffff?text=Table+Reunion';"
               />
               <div class="p-4">
-                <h3 class="text-xl font-semibold text-gray-800">
-                  Tables Reunions
-                </h3>
+                <h4 class="text-xl font-semibold text-gray-800">
+                  Tables de Réunion
+                </h4>
                 <p class="text-gray-500 mt-1">
-                  Designs intérieurs modernes et confortables pour des salles
-                  des reunions.
+                  Tables de réunion de différentes tailles adaptées à tous les
+                  espaces de travail.
+                </p>
+              </div>
+            </div>
+
+            <!-- Produit 1.3: Postes de Travail (Hidden Extra 2) -->
+            <div
+              id="office-extra-2"
+              class="hidden-product bg-white rounded-xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.02]"
+            >
+              <img
+                src="Poste de travaille.png"
+                alt="Postes de Travail collaboratifs"
+                class="w-full h-48 object-cover"
+                onerror="this.onerror=null; this.src='https://placehold.co/600x400/10b981/ffffff?text=Poste+Travail';"
+              />
+              <div class="p-4">
+                <h4 class="text-xl font-semibold text-gray-800">
+                  Postes de Travail
+                </h4>
+                <p class="text-gray-500 mt-1">
+                  Unités de travail individuelles et collaboratives au design
+                  moderne et confortable.
+                </p>
+              </div>
+            </div>
+
+            <!-- Produit 1.4: Sièges de Bureau (Hidden Extra 3) -->
+            <div
+              id="office-extra-3"
+              class="hidden-product bg-white rounded-xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.02]"
+            >
+              <img
+                src="Chaise 1.jpg"
+                alt="Sièges de bureau ergonomiques"
+                class="w-full h-48 object-cover"
+                onerror="this.onerror=null; this.src='https://placehold.co/600x400/f3f4f6/1f2937?text=Sièges+Ergonomiques';"
+              />
+              <div class="p-4">
+                <h4 class="text-xl font-semibold text-gray-800">
+                  Sièges de Bureau
+                </h4>
+                <p class="text-gray-500 mt-1">
+                  Chaises et sièges ergonomiques pour un soutien optimal et un
+                  maximum de confort.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ****************************** -->
+          <!-- Catégorie 2: Mobilier de Maison -->
+          <!-- ****************************** -->
+          <h3
+            class="text-2xl font-bold text-blue-700 mb-6 border-b-2 border-blue-200 pb-2 flex items-center max-w-7xl mx-auto"
+          >
+            <i class="fas fa-home mr-3 text-2xl"></i> Mobilier de Maison
+          </h3>
+
+          <div
+            id="maison-products-grid"
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-7xl mx-auto"
+          >
+            <!-- 2.1: Salons et Canapés (MAIN CARD) -->
+            <div
+              id="living-main-card"
+              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.02]"
+            >
+              <img
+                src="Salon-Belin.jpg"
+                alt="Canapés et salons de luxe. Cliquez pour voir plus."
+                class="w-full h-48 object-cover"
+                onerror="this.onerror=null; this.src='https://placehold.co/600x400/ef4444/ffffff?text=Salon+Maison';"
+              />
+              <div class="p-4">
+                <h4 class="text-xl font-semibold text-gray-800">
+                  Salons et Canapés
+                </h4>
+                <p id="living-description" class="text-gray-500 mt-1">
+                  Large gamme de canapés confortables aux designs classiques et
+                  contemporains. (Cliquez sur l'image pour voir plus)
+                </p>
+              </div>
+            </div>
+
+            <!-- Salons Hidden Extra 1 -->
+            <div
+              id="living-extra-1"
+              class="hidden-product bg-white rounded-xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.02]"
+            >
+              <img
+                src="Fauteuil.jpg"
+                alt="Fauteuils design"
+                class="w-full h-48 object-cover"
+                onerror="this.onerror=null; this.src='https://placehold.co/600x400/e9d5ff/4f46e5?text=Fauteuils+Design';"
+              />
+              <div class="p-4">
+                <h4 class="text-xl font-semibold text-gray-800">
+                  Fauteuils Design
+                </h4>
+                <p class="text-gray-500 mt-1">
+                  Fauteuils d'appoint élégants pour compléter votre espace
+                  salon.
+                </p>
+              </div>
+            </div>
+
+            <!-- Salons Hidden Extra 2 -->
+            <div
+              id="living-extra-2"
+              class="hidden-product bg-white rounded-xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.02]"
+            >
+              <img
+                src="Table Basse.jpg"
+                alt="Tables basses modernes"
+                class="w-full h-48 object-cover"
+                onerror="this.onerror=null; this.src='https://placehold.co/600x400/93c5fd/1e40af?text=Tables+Basses';"
+              />
+              <div class="p-4">
+                <h4 class="text-xl font-semibold text-gray-800">
+                  Tables Basses
+                </h4>
+                <p class="text-gray-500 mt-1">
+                  Sélection de tables basses en bois, métal ou verre.
+                </p>
+              </div>
+            </div>
+
+            <!-- Salons Hidden Extra 3 -->
+            <div
+              id="living-extra-3"
+              class="hidden-product bg-white rounded-xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.02]"
+            >
+              <img
+                src="Meuble TV.jpg"
+                alt="Meubles TV et Rangement"
+                class="w-full h-48 object-cover"
+                onerror="this.onerror=null; this.src='https://placehold.co/600x400/fce7f3/db2777?text=Meubles+Rangement';"
+              />
+              <div class="p-4">
+                <h4 class="text-xl font-semibold text-gray-800">
+                  Meubles TV & Rangement
+                </h4>
+                <p class="text-gray-500 mt-1">
+                  Solutions de rangement élégantes et pratiques pour le salon.
+                </p>
+              </div>
+            </div>
+
+            <!-- 2.2.1: Salles à Manger (MAIN CARD) -->
+            <div
+              id="dining-main-card"
+              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.02]"
+            >
+              <img
+                src="Salle a manger 5.jpg"
+                alt="Salle à Manger Principale - Cliquez pour voir plus"
+                class="w-full h-48 object-cover"
+                onerror="this.onerror=null; this.src='https://placehold.co/600x400/f59e0b/ffffff?text=S.A.M.+Principale';"
+              />
+              <div class="p-4">
+                <h4 class="text-xl font-semibold text-gray-800">
+                  Salle à Manger Principale
+                </h4>
+                <p id="dining-description" class="text-gray-500 mt-1">
+                  Découvrez notre sélection phare de tables et chaises. (Cliquez
+                  sur l'image pour voir plus)
+                </p>
+              </div>
+            </div>
+
+            <!-- Salles à Manger Hidden Extra 1 -->
+            <div
+              id="dining-extra-1"
+              class="hidden-product bg-white rounded-xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.02]"
+            >
+              <img
+                src="Salle a manger 2.jpg"
+                alt="Ensemble Salle à Manger Moderne Scandinave"
+                class="w-full h-48 object-cover"
+                onerror="this.onerror=null; this.src='https://placehold.co/600x400/34d399/ffffff?text=S.A.M.+Scandinave';"
+              />
+              <div class="p-4">
+                <h4 class="text-xl font-semibold text-gray-800">
+                  Ensemble 'Moderne Scandinave'
+                </h4>
+                <p class="text-gray-500 mt-1">
+                  Design épuré et matériaux naturels pour un style contemporain
+                  et lumineux.
+                </p>
+              </div>
+            </div>
+
+            <!-- Salles à Manger Hidden Extra 2 -->
+            <div
+              id="dining-extra-2"
+              class="hidden-product bg-white rounded-xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.02]"
+            >
+              <img
+                src="Table extens.jpg"
+                alt="Table de Banquet Grand Luxe"
+                class="w-full h-48 object-cover"
+                onerror="this.onerror=null; this.src='https://placehold.co/600x400/ef4444/ffffff?text=S.A.M.+Luxe';"
+              />
+              <div class="p-4">
+                <h4 class="text-xl font-semibold text-gray-800">
+                  Table de Banquet 'Grand Luxe'
+                </h4>
+                <p class="text-gray-500 mt-1">
+                  Table extensible avec finitions en marbre, parfaite pour les
+                  grandes réceptions.
+                </p>
+              </div>
+            </div>
+
+            <!-- Salles à Manger Hidden Extra 3 -->
+            <div
+              id="dining-extra-3"
+              class="hidden-product bg-white rounded-xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.02]"
+            >
+              <img
+                src="Chaise Salon.jpg"
+                alt="Ensemble de Chaises"
+                class="w-full h-48 object-cover"
+                onerror="this.onerror=null; this.src='https://placehold.co/600x400/99f6e4/047857?text=Chaises+Cuir';"
+              />
+              <div class="p-4">
+                <h4 class="text-xl font-semibold text-gray-800">
+                  Ensemble de Chaises
+                </h4>
+                <p class="text-gray-500 mt-1">
+                  Chaises de salle à manger luxueuses en cuir véritable.
+                </p>
+              </div>
+            </div>
+
+            <!-- 2.3: Chambres à Coucher (MAIN CARD) -->
+            <div
+              id="bedroom-main-card"
+              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.02]"
+            >
+              <img
+                src="Chambre a Coucher.jpg"
+                alt="Chambres à coucher modernes. Cliquez pour voir plus."
+                class="w-full h-48 object-cover"
+                onerror="this.onerror=null; this.src='https://placehold.co/600x400/34d399/ffffff?text=Chambre+Couche';"
+              />
+              <div class="p-4">
+                <h4 class="text-xl font-semibold text-gray-800">
+                  Chambres à Coucher
+                </h4>
+                <p id="bedroom-description" class="text-gray-500 mt-1">
+                  Meubles de chambre à coucher assurant confort et élégance avec
+                  des détails précis. (Cliquez sur l'image pour voir plus)
+                </p>
+              </div>
+            </div>
+
+            <!-- Chambres Hidden Extra 1 -->
+            <div
+              id="bedroom-extra-1"
+              class="hidden-product bg-white rounded-xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.02]"
+            >
+              <img
+                src="Lit king size.jpg"
+                alt="Lits King Size"
+                class="w-full h-48 object-cover"
+                onerror="this.onerror=null; this.src='https://placehold.co/600x400/a78bfa/4c1d95?text=Lits+King+Size';"
+              />
+              <div class="p-4">
+                <h4 class="text-xl font-semibold text-gray-800">
+                  Lits King Size
+                </h4>
+                <p class="text-gray-500 mt-1">
+                  Lits spacieux et têtes de lit capitonnées pour un sommeil
+                  réparateur.
+                </p>
+              </div>
+            </div>
+
+            <!-- Chambres Hidden Extra 2 -->
+            <div
+              id="bedroom-extra-2"
+              class="hidden-product bg-white rounded-xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.02]"
+            >
+              <img
+                src="dressing.jpg"
+                alt="Armoires et Dressing"
+                class="w-full h-48 object-cover"
+                onerror="this.onerror=null; this.src='https://placehold.co/600x400/fda4af/9f1239?text=Armoires';"
+              />
+              <div class="p-4">
+                <h4 class="text-xl font-semibold text-gray-800">
+                  Armoires et Dressing
+                </h4>
+                <p class="text-gray-500 mt-1">
+                  Solutions de rangement sur mesure pour vos vêtements.
+                </p>
+              </div>
+            </div>
+
+            <!-- Chambres Hidden Extra 3 -->
+            <div
+              id="bedroom-extra-3"
+              class="hidden-product bg-white rounded-xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.02]"
+            >
+              <img
+                src="table de nuit.jpg"
+                alt="Tables de nuit design"
+                class="w-full h-48 object-cover"
+                onerror="this.onerror=null; this.src='https://placehold.co/600x400/9ca3af/1f2937?text=Tables+Nuit';"
+              />
+              <div class="p-4">
+                <h4 class="text-xl font-semibold text-gray-800">
+                  Tables de Nuit
+                </h4>
+                <p class="text-gray-500 mt-1">
+                  Tables de chevet modernes avec tiroirs intégrés.
                 </p>
               </div>
             </div>
@@ -396,9 +752,9 @@
 
           <div class="text-center mt-12">
             <a
-              href="#"
+              href="#contact"
               class="bg-blue-500 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-blue-600 transition-colors duration-300 transform hover:scale-105"
-              >Voir tous les projets</a
+              >Demander un devis</a
             >
           </div>
         </div>
@@ -413,25 +769,35 @@
               <h3 class="text-3xl font-bold mb-6">Contactez-nous</h3>
               <p class="flex items-center mb-4">
                 <i class="fas fa-map-marker-alt w-5 h-5 mr-3 text-blue-400"></i>
-                Adresse : Z.I de Stoueli, Route de Ouled Fayet-Staoueli-Alger
+                Adresse : Z.I de Staoueli, route de Ouled Fayet-Staoueli-Alger
               </p>
               <p class="flex items-center mb-4">
                 <i class="fas fa-envelope w-5 h-5 mr-3 text-blue-400"></i>
-                E-mail : mondialprestige@gmail.com
+                E-mail : sarlmondialprestige@gmail.com
               </p>
               <p class="flex items-center mb-4">
                 <i class="fas fa-phone w-5 h-5 mr-3 text-blue-400"></i>
-                Téléphone : +213 (23) 20 91 19/23
+                Téléphone : +213 23209119/23 +213781528785 +213782220016
               </p>
             </div>
 
-            <!-- Formulaire de Contact -->
+            <!-- Formulaire de Contact - Préparé pour recevoir les e-mails via Formspree -->
             <div class="md:col-span-2">
               <h3 class="text-3xl font-bold mb-6">Envoyez-nous un message</h3>
-              <form action="#" method="POST" class="space-y-4">
+              <!-- 
+                !! POUR QUE LE FORMULAIRE DE CONTACT FONCTIONNE: !!
+                Vous devez créer un formulaire sur Formspree en utilisant votre email sarlmondialprestige@gmail.com
+                et remplacer "YOUR_UNIQUE_FORM_ID" par le code unique que vous recevrez.
+              -->
+              <form
+                action="https://formspree.io/f/YOUR_UNIQUE_FORM_ID"
+                method="POST"
+                class="space-y-4"
+              >
                 <div>
                   <input
                     type="text"
+                    name="Nom"
                     placeholder="Nom complet"
                     required
                     class="w-full p-3 rounded-lg bg-blue-800 border border-blue-700 placeholder-blue-300 text-white focus:ring-blue-500 focus:border-blue-500"
@@ -440,6 +806,7 @@
                 <div>
                   <input
                     type="email"
+                    name="Email"
                     placeholder="Votre e-mail"
                     required
                     class="w-full p-3 rounded-lg bg-blue-800 border border-blue-700 placeholder-blue-300 text-white focus:ring-blue-500 focus:border-blue-500"
@@ -447,6 +814,7 @@
                 </div>
                 <div>
                   <textarea
+                    name="Message"
                     placeholder="Votre message"
                     rows="4"
                     required
@@ -473,12 +841,12 @@
       >
         <p>
           &copy; 2025 MONDIAL PRESTIGE. Tous droits réservés. | Conçu avec
-          fierté. | Designed By Zebiri Badreddine
+          fierté.
         </p>
       </div>
     </footer>
 
-    <!-- JavaScript pour la fonctionnalité du menu et du carrousel -->
+    <!-- JavaScript pour activer le Carrousel, le Menu Mobile et la fonction "Voir plus" des Salles à Manger -->
     <script>
       // 1. Initialisation du menu mobile
       function initializeMobileMenu() {
@@ -504,12 +872,14 @@
 
         menuBtn.addEventListener("click", toggleMenu);
 
-        // Fermer le menu lors du clic sur un lien
+        // Fermer le menu lors du clic sur un lien (important, surtout avec le défilement fluide)
         document.querySelectorAll("#mobile-menu a").forEach((link) => {
           link.addEventListener("click", () => {
+            // S'assurer que le menu se ferme après le clic sur le lien
             if (isOpen) {
               toggleMenu();
             }
+            // La propriété scroll-behavior: smooth en CSS gère le défilement fluide.
           });
         });
       }
@@ -576,10 +946,112 @@
         carousel.addEventListener("mouseleave", resetAutoSlide);
       }
 
-      // Initialiser tous les composants au chargement de la page
+      // 3. وظيفة عامة لإعداد خاصية إظهار/إخفاء المنتجات
+      function setupProductToggle(
+        mainCardId,
+        extraIds,
+        descriptionId,
+        defaultText,
+        toggleText
+      ) {
+        const mainCard = document.getElementById(mainCardId);
+        // البحث عن الصورة داخل البطاقة الرئيسية
+        const mainImage = mainCard ? mainCard.querySelector("img") : null;
+        // جلب عنصر الوصف لتحديث النص
+        const descriptionElement = document.getElementById(descriptionId);
+
+        // تحويل مصفوفة المعرفات إلى عناصر DOM حقيقية
+        const extraProducts = extraIds
+          .map((id) => document.getElementById(id))
+          .filter((el) => el !== null); // تصفية العناصر غير الموجودة
+
+        let extrasVisible = false;
+
+        if (mainImage) {
+          mainImage.addEventListener("click", function () {
+            if (extrasVisible) {
+              // الإخفاء
+              extraProducts.forEach((product) => {
+                // بدء الانتقال (Fade Out)
+                product.classList.remove("visible-product");
+                product.classList.add("hidden-product");
+                // إزالة display:block بعد انتهاء الانتقال (للتوافق مع hidden-product)
+                setTimeout(() => (product.style.display = "none"), 500);
+              });
+              if (descriptionElement) {
+                descriptionElement.textContent = defaultText;
+              }
+              extrasVisible = false;
+            } else {
+              // الإظهار
+              extraProducts.forEach((product) => {
+                // جعل العنصر مرئياً قبل تطبيق الانتقال
+                product.style.display = "block";
+                // تأخير بسيط لضمان تطبيق التغييرات وإطلاق الانتقال
+                setTimeout(() => {
+                  product.classList.remove("hidden-product");
+                  product.classList.add("visible-product");
+                }, 10);
+              });
+              if (descriptionElement) {
+                descriptionElement.textContent = toggleText;
+              }
+              extrasVisible = true;
+            }
+          });
+        }
+      }
+
+      // 4. تهيئة جميع مفاتيح الإظهار/الإخفاء للمنتجات
+      function initializeAllProductToggles() {
+        const defaultText = " (Cliquez sur l'image pour voir plus)";
+        const toggleText = " (Cliquez à nouveau pour masquer les options)";
+
+        // 1. قسم Mobilier de Bureau
+        setupProductToggle(
+          "office-main-card",
+          ["office-extra-1", "office-extra-2", "office-extra-3"],
+          "office-description",
+          "Designs exécutifs luxueux et matériaux de haute qualité pour un environnement de travail optimal." +
+            defaultText,
+          "Cliquez à nouveau pour masquer les options de bureaux."
+        );
+
+        // 2. قسم Mobilier de Maison - Salons
+        setupProductToggle(
+          "living-main-card",
+          ["living-extra-1", "living-extra-2", "living-extra-3"],
+          "living-description",
+          "Large gamme de canapés confortables aux designs classiques et contemporains." +
+            defaultText,
+          "Cliquez à nouveau pour masquer les options de salons."
+        );
+
+        // 3. قسم Mobilier de Maison - Salles à Manger
+        setupProductToggle(
+          "dining-main-card",
+          ["dining-extra-1", "dining-extra-2", "dining-extra-3"],
+          "dining-description",
+          "Découvrez notre sélection phare de tables et chaises." + defaultText,
+          "Cliquez à nouveau pour masquer les options de salles à manger."
+        );
+
+        // 4. قسم Mobilier de Maison - Chambres à Coucher
+        setupProductToggle(
+          "bedroom-main-card",
+          ["bedroom-extra-1", "bedroom-extra-2", "bedroom-extra-3"],
+          "bedroom-description",
+          "Meubles de chambre à coucher assurant confort et élégance avec des détails précis." +
+            defaultText,
+          "Cliquez à nouveau pour masquer les options de chambres."
+        );
+      }
+
+      // Initialiser جميع المكونات عند تحميل الصفحة
       window.onload = function () {
         initializeMobileMenu();
         initializeCarousel();
+        initializeAllProductToggles(); // Call the main toggle function
       };
     </script>
   </body>
