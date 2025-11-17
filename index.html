@@ -90,14 +90,39 @@
   </head>
   <body class="bg-gray-50 antialiased">
     <!-- Bouton flottant WhatsApp -->
-    <a
-      href="https://wa.me/XXXXXXXXXX"
-      target="_blank"
+    <button
+      id="whatsapp-btn"
       class="floating-btn p-4 rounded-full flex items-center justify-center"
-      aria-label="Contactez-nous via WhatsApp"
+      aria-label="Choisir numéro WhatsApp"
     >
       <i class="fab fa-whatsapp text-2xl"></i>
-    </a>
+    </button>
+
+    <!-- Fenêtre de sélection WhatsApp -->
+    <div
+      id="whatsapp-modal"
+      class="fixed bottom-24 left-4 bg-white shadow-xl rounded-xl p-4 w-64 hidden"
+    >
+      <p class="font-semibold text-gray-800 mb-3 text-center">
+        Choisissez un numéro
+      </p>
+
+      <a
+        href="https://wa.me/213781528785"
+        target="_blank"
+        class="block bg-green-500 text-white text-center py-2 rounded-lg mb-2 hover:bg-green-600"
+      >
+        +213 781 528 785
+      </a>
+
+      <a
+        href="https://wa.me/213782220016"
+        target="_blank"
+        class="block bg-green-500 text-white text-center py-2 rounded-lg hover:bg-green-600"
+      >
+        +213 782 220 016
+      </a>
+    </div>
 
     <!-- 1. Barre de Navigation (Header) -->
     <header class="bg-blue-800 shadow-lg sticky top-0 z-40" id="main-header">
@@ -846,5 +871,20 @@
         </p>
       </div>
     </footer>
+    <script>
+      const btn = document.getElementById("whatsapp-btn");
+      const modal = document.getElementById("whatsapp-modal");
+
+      btn.addEventListener("click", () => {
+        modal.classList.toggle("hidden");
+      });
+
+      // Close popup if user clicks outside
+      document.addEventListener("click", (e) => {
+        if (!btn.contains(e.target) && !modal.contains(e.target)) {
+          modal.classList.add("hidden");
+        }
+      });
+    </script>
   </body>
 </html>
