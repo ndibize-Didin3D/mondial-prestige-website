@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MONDIAL PRESTIGE - Mobilier de Bureau et de Maison</title>
-    <!-- Chargement de Tailwind CSS pour un design responsive et moderne -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chargement des icônes Font Awesome pour un style plus riche -->
+    <!-- Font Awesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -17,38 +17,54 @@
     />
 
     <style>
-      /* Activation du défilement fluide au niveau du navigateur */
       html {
         scroll-behavior: smooth;
       }
 
-      /* Définition des couleurs principales de la marque */
       :root {
-        --color-primary: #1e40af; /* Bleu foncé fort */
-        --color-secondary: #3b82f6; /* Bleu clair pour l'accent */
+        --color-primary: #1e40af;
+        --color-secondary: #3b82f6;
       }
 
       body {
         font-family: "Inter", sans-serif;
-        background-color: #ffffff;
-        color: #1f2937;
+        background-color: #020617; /* نفس جو الهيدر تقريبا */
+        color: #e5e7eb; /* نص فاتح */
+        position: relative;
+        min-height: 100vh;
+        overflow-x: hidden;
       }
 
-      /* Style spécifique pour les icônes de la section Services (Font Awesome) */
+      /* شعار كبير في خلفية الموقع */
+      body::before {
+        content: "";
+        position: fixed; /* يبقى ثابت مع السكروول */
+        inset: 0;
+        margin: auto;
+        width: 90vmin; /* الحجم – تقدر تزيد/تنقص */
+        height: 90vmin;
+        background-image: url("Logo 2.png"); /* نفس اسم ملف الشعار */
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        opacity: 0.07; /* شفافية الشعار */
+        pointer-events: none; /* ما يعيّقش الكليك على المحتوى */
+        z-index: -1; /* يبقى خلف كل شيء */
+      }
+
       .service-icon {
         color: var(--color-primary);
-        font-size: 3rem; /* Agrandissement de l'icône */
+        font-size: 3rem;
         margin-bottom: 1rem;
         display: inline-block;
       }
 
-      /* Style du bouton flottant WhatsApp */
       .floating-btn {
         position: fixed;
         bottom: 2rem;
         left: 2rem;
         z-index: 50;
-        background-color: #25d366; /* Couleur WhatsApp */
+        background-color: #25d366;
         color: white;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
           0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -59,36 +75,60 @@
         transform: scale(1.05);
       }
 
-      /* Pour définir la largeur des diapositives du carrousel */
       #carousel-items {
         will-change: transform;
       }
 
-      /* فئة CSS الجديدة لإخفاء العناصر مع إضافة حركة سلسة (Fade In) */
       .hidden-product {
         display: none;
         opacity: 0;
         transform: translateY(10px);
         transition: opacity 0.5s ease-out, transform 0.5s ease-out;
       }
-      /* فئة الإظهار */
       .visible-product {
         display: block;
         opacity: 1;
         transform: translateY(0);
       }
 
-      /* تخصيص مؤشر الفأرة للبطاقة الرئيسية لتبدو قابلة للنقر */
       .main-product-card img {
         cursor: pointer;
         transition: filter 0.3s;
       }
       .main-product-card img:hover {
-        filter: brightness(0.9); /* تعتيم خفيف عند المرور */
+        filter: brightness(0.9);
+      }
+
+      /* -------- Lightbox لعرض الصور مكبرة -------- */
+      #image-lightbox {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.85);
+        display: none; /* مخفية افتراضياً */
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+      }
+
+      #image-lightbox img {
+        max-width: 90vw;
+        max-height: 90vh;
+        border-radius: 1rem;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      }
+
+      #image-lightbox-close {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        font-size: 2rem;
+        color: #e5e7eb;
+        cursor: pointer;
       }
     </style>
   </head>
-  <body class="bg-gray-50 antialiased">
+
+  <body class="antialiased">
     <!-- Bouton flottant WhatsApp -->
     <button
       id="whatsapp-btn"
@@ -98,7 +138,7 @@
       <i class="fab fa-whatsapp text-2xl"></i>
     </button>
 
-    <!-- Fenêtre de sélection WhatsApp -->
+    <!-- Fenêtre WhatsApp -->
     <div
       id="whatsapp-modal"
       class="fixed bottom-24 left-4 bg-white shadow-xl rounded-xl p-4 w-64 hidden"
@@ -110,7 +150,7 @@
       <a
         href="https://wa.me/213781528785"
         target="_blank"
-        class="block bg-green-500 text-white text-center py-2 rounded-lg mb-2 hover:bg-green-600"
+        class="mt-4 inline-flex items-center gap-2 rounded-full border border-green-500/70 bg-green-600/90 px-5 py-2.5 text-xs sm:text-sm uppercase tracking-[0.18em] text-white shadow-lg hover:bg-green-500 hover:border-green-400 transition"
       >
         +213 781 528 785
       </a>
@@ -118,114 +158,149 @@
       <a
         href="https://wa.me/213782220016"
         target="_blank"
-        class="block bg-green-500 text-white text-center py-2 rounded-lg hover:bg-green-600"
+        class="mt-4 inline-flex items-center gap-2 rounded-full border border-green-500/70 bg-green-600/90 px-5 py-2.5 text-xs sm:text-sm uppercase tracking-[0.18em] text-white shadow-lg hover:bg-green-500 hover:border-green-400 transition"
       >
         +213 782 220 016
       </a>
     </div>
 
-    <!-- 1. Barre de Navigation (Header) -->
-    <header class="bg-blue-800 shadow-lg sticky top-0 z-40" id="main-header">
-      <div
-        class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center"
-      >
-        <!-- Logo de la Marque -->
-        <div class="flex items-center space-x-2">
-          <!-- Chemin de l'image: il est supposé être dans le même dossier (chemin conservé à votre demande) -->
-          <img
-            src="Logo.png"
-            alt="Logo MONDIAL PRESTIGE"
-            class="w-10 h-10 object-contain rounded-full bg-white p-1"
-            onerror="this.onerror=null; this.src='https://placehold.co/40x40/1e40af/ffffff?text=Logo';"
-          />
-          <span class="text-white text-xl font-bold">MONDIAL PRESTIGE</span>
+    <!-- Header -->
+    <header
+      class="sticky top-0 z-40 bg-slate-950/90 backdrop-blur border-b border-slate-800"
+    >
+      <div class="container mx-auto px-4 sm:px-6 lg:px-10">
+        <div class="flex items-center justify-between py-3">
+          <!-- Logo + Texte -->
+          <div class="flex items-center">
+            <img
+              src="Logo 2.png"
+              alt="Logo MONDIAL PRESTIGE"
+              class="w-16 h-16 object-contain drop-shadow-xl"
+              loading="eager"
+            />
+            <div class="flex flex-col leading-tight ml-3">
+              <span
+                class="text-white text-[18px] font-semibold tracking-[0.20em]"
+              >
+                MONDIAL
+              </span>
+              <span
+                class="text-blue-300 text-[11px] font-medium tracking-[0.45em] uppercase"
+              >
+                PRESTIGE
+              </span>
+            </div>
+          </div>
+
+          <!-- Menu Desktop -->
+          <nav
+            class="hidden md:flex items-center space-x-6 text-sm font-medium"
+          >
+            <a
+              href="#home"
+              class="text-slate-100 hover:text-blue-300 transition-colors"
+              >Accueil</a
+            >
+            <a
+              href="#services"
+              class="text-slate-100 hover:text-blue-300 transition-colors"
+              >Services</a
+            >
+            <a
+              href="#produits"
+              class="text-slate-100 hover:text-blue-300 transition-colors"
+              >Produits</a
+            >
+            <a
+              href="#realisations"
+              class="text-slate-100 hover:text-blue-300 transition-colors"
+              >Réalisations</a
+            >
+            <a
+              href="#contact"
+              class="text-slate-100 hover:text-blue-300 transition-colors"
+              >Contact</a
+            >
+
+            <a
+              href="https://wa.me/213782220016"
+              target="_blank"
+              class="inline-flex items-center gap-2 rounded-full border border-blue-500/70 bg-blue-600/90 px-5 py-2.5 text-xs sm:text-sm uppercase tracking-[0.18em] text-white shadow-lg hover:bg-blue-500 hover:border-blue-400 transition"
+            >
+              <i class="fa-brands fa-whatsapp text-sm"></i>
+              Devis rapide
+            </a>
+          </nav>
+
+          <!-- Menu Mobile -->
+          <button
+            id="mobile-menu-button"
+            class="md:hidden text-white text-2xl focus:outline-none"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
         </div>
 
-        <!-- Menu de Navigation (Desktop) -->
-        <nav class="hidden md:flex space-x-6 text-white text-lg">
-          <a href="#home" class="hover:text-blue-300 transition-colors"
-            >Accueil</a
-          >
-          <a href="#services" class="hover:text-blue-300 transition-colors"
-            >Services</a
-          >
-          <a href="#products" class="hover:text-blue-300 transition-colors"
-            >Produits</a
-          >
-          <a href="#projects" class="hover:text-blue-300 transition-colors"
-            >Projets</a
-          >
-          <a href="#contact" class="hover:text-blue-300 transition-colors"
-            >Contact</a
-          >
-        </nav>
-
-        <!-- Bouton Menu Mobile -->
-        <button
-          id="mobile-menu-btn"
-          class="md:hidden text-white hover:text-blue-300 transition-colors focus:outline-none"
-          aria-label="Menu de navigation"
+        <div
+          id="mobile-menu"
+          class="md:hidden hidden flex-col space-y-2 pb-4 text-sm font-medium"
         >
-          <i class="fas fa-bars text-xl"></i>
-        </button>
-      </div>
-
-      <!-- Menu Mobile (Caché par défaut) -->
-      <nav
-        id="mobile-menu"
-        class="md:hidden absolute top-full left-0 w-full bg-blue-700 transform transition-transform duration-300 -translate-y-full"
-      >
-        <div class="flex flex-col space-y-2 p-4 text-white">
           <a
             href="#home"
-            class="hover:bg-blue-600 px-3 py-2 rounded-lg transition-colors"
+            class="text-slate-100 hover:text-blue-300 transition-colors"
             >Accueil</a
           >
           <a
             href="#services"
-            class="hover:bg-blue-600 px-3 py-2 rounded-lg transition-colors"
+            class="text-slate-100 hover:text-blue-300 transition-colors"
             >Services</a
           >
           <a
-            href="#products"
-            class="hover:bg-blue-600 px-3 py-2 rounded-lg transition-colors"
+            href="#produits"
+            class="text-slate-100 hover:text-blue-300 transition-colors"
             >Produits</a
           >
           <a
-            href="#projects"
-            class="hover:bg-blue-600 px-3 py-2 rounded-lg transition-colors"
-            >Projets</a
+            href="#realisations"
+            class="text-slate-100 hover:text-blue-300 transition-colors"
+            >Réalisations</a
           >
           <a
             href="#contact"
-            class="hover:bg-blue-600 px-3 py-2 rounded-lg transition-colors"
+            class="text-slate-100 hover:text-blue-300 transition-colors"
             >Contact</a
           >
+          <a
+            href="https://wa.me/213782220016"
+            target="_blank"
+            class="inline-flex items-center justify-center gap-2 rounded-full border border-blue-500/60 bg-blue-600/90 px-4 py-2 text-xs uppercase tracking-[0.2em] text-white shadow-lg hover:bg-blue-500 hover:border-blue-400 transition"
+          >
+            <i class="fa-brands fa-whatsapp text-sm"></i>
+            Devis rapide
+          </a>
         </div>
-      </nav>
+      </div>
     </header>
 
     <main>
-      <!-- 2. Section Carrousel Héro -->
-      <section id="home" class="relative overflow-hidden bg-gray-100">
+      <!-- Carrousel -->
+      <section id="home" class="relative overflow-hidden">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div
             id="carousel"
             class="relative w-full max-w-6xl mx-auto rounded-xl shadow-2xl overflow-hidden"
           >
-            <!-- Conteneur des éléments du carrousel -->
             <div
               id="carousel-items"
               class="flex transition-transform duration-700 ease-in-out"
               style="transform: translateX(0)"
             >
-              <!-- Slide 1: Créez l'Espace de Travail Idéal (Vue 5) -->
+              <!-- Slide 1 -->
               <div class="carousel-item flex-shrink-0 w-full relative">
-                <!-- Chemin de l'image: conservé -->
                 <img
                   src="Vue 3.jpg"
                   alt="Créer l'espace de travail idéal"
-                  class="w-full h-96 object-cover rounded-xl shadow-lg"
+                  class="w-full h-96 object-cover rounded-xl shadow-lg main-lightbox-img"
                   onerror="this.onerror=null; this.src='https://placehold.co/1200x600/1e40af/ffffff?text=Espace+de+Travail+Idéal';"
                 />
                 <div
@@ -237,13 +312,12 @@
                 </div>
               </div>
 
-              <!-- Slide 2: L'Art de la Réunion (Vue 2) -->
+              <!-- Slide 2 -->
               <div class="carousel-item flex-shrink-0 w-full relative">
-                <!-- Chemin de l'image: conservé -->
                 <img
                   src="Table Reunion 1.jpg"
                   alt="L'Art de la Réunion"
-                  class="w-full h-96 object-cover rounded-xl shadow-lg"
+                  class="w-full h-96 object-cover rounded-xl shadow-lg main-lightbox-img"
                   onerror="this.onerror=null; this.src='https://placehold.co/1200x600/10b981/ffffff?text=L\'Art+de+la+Réunion';"
                 />
                 <div
@@ -255,13 +329,12 @@
                 </div>
               </div>
 
-              <!-- Slide 3: Confort et Élégance pour la Maison (Vue 3) -->
+              <!-- Slide 3 -->
               <div class="carousel-item flex-shrink-0 w-full relative">
-                <!-- Chemin de l'image: conservé -->
                 <img
                   src="Vue 5.jpg"
                   alt="Mobilier de maison contemporain"
-                  class="w-full h-96 object-cover rounded-xl shadow-lg"
+                  class="w-full h-96 object-cover rounded-xl shadow-lg main-lightbox-img"
                   onerror="this.onerror=null; this.src='https://placehold.co/1200x600/f59e0b/ffffff?text=Mobilier+Maison+Contemporain';"
                 />
                 <div
@@ -273,13 +346,12 @@
                 </div>
               </div>
 
-              <!-- Slide 4: Votre Projet, Notre Expertise (Table Reunion 1) -->
+              <!-- Slide 4 -->
               <div class="carousel-item flex-shrink-0 w-full relative">
-                <!-- Chemin de l'image: conservé -->
                 <img
                   src="Vue 2.jpg"
                   alt="Design et Projets personnalisés"
-                  class="w-full h-96 object-cover rounded-xl shadow-lg"
+                  class="w-full h-96 object-cover rounded-xl shadow-lg main-lightbox-img"
                   onerror="this.onerror=null; this.src='https://placehold.co/1200x600/ef4444/ffffff?text=Projet+Personnalisé';"
                 />
                 <div
@@ -292,7 +364,7 @@
               </div>
             </div>
 
-            <!-- Boutons de navigation -->
+            <!-- Boutons -->
             <button
               id="prev-btn"
               class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white/50 hover:bg-white/70 text-gray-800 p-3 rounded-full shadow-md transition-colors"
@@ -309,16 +381,16 @@
         </div>
       </section>
 
-      <!-- 3. Section Notre Histoire (About Us) -->
-      <section id="about" class="py-16 bg-white">
+      <!-- Notre Histoire -->
+      <section id="about" class="py-16">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
           <div class="max-w-4xl mx-auto text-center">
             <h2
-              class="text-4xl font-extrabold text-blue-900 mb-4 border-b-4 border-blue-500 inline-block pb-1"
+              class="text-4xl font-extrabold text-white mb-4 border-b-4 border-blue-500 inline-block pb-1"
             >
               Notre Histoire
             </h2>
-            <p class="text-gray-600 text-lg mb-8">
+            <p class="text-slate-300 text-lg mb-8">
               "MONDIAL PRESTIGE" est votre destination de choix pour le mobilier
               de bureau et de maison de luxe. Nous croyons que votre
               environnement doit refléter votre ambition et votre confort.
@@ -329,26 +401,24 @@
             </p>
             <a
               href="#contact"
-              class="bg-blue-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-blue-700 transition-colors duration-300 transform hover:scale-105"
+              class="bg-blue-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-blue-500 transition-colors durée-300 transform hover:scale-105"
               >Découvrez notre collection</a
             >
           </div>
         </div>
       </section>
 
-      <!-- 4. Section Nos Services (Services) -->
-      <section id="services" class="py-16 bg-gray-50">
+      <!-- Services -->
+      <section id="services" class="py-16">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 class="text-3xl font-bold text-center text-blue-900 mb-12">
+          <h2 class="text-3xl font-bold text-center text-white mb-12">
             Que proposons-nous ?
           </h2>
 
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <!-- Carte Service 1 -->
             <div
               class="bg-white p-8 rounded-xl shadow-lg text-center transition duration-300 hover:shadow-xl hover:scale-[1.02]"
             >
-              <!-- Remplacement de l'icône (précédente) par Font Awesome -->
               <i class="service-icon fas fa-building mb-4"></i>
               <h3 class="text-xl font-semibold text-gray-800 mb-3">
                 Aménagement de Bureaux
@@ -359,11 +429,9 @@
               </p>
             </div>
 
-            <!-- Carte Service 2 -->
             <div
-              class="bg-white p-8 rounded-xl shadow-lg text-center transition duration-300 hover:shadow-xl hover:scale-[1.02]"
+              class="bg-white p-8 rounded-xl shadow-lg text-center transition durée-300 hover:shadow-xl hover:scale-[1.02]"
             >
-              <!-- Remplacement de l'icône (précédente) par Font Awesome -->
               <i class="service-icon fas fa-couch mb-4"></i>
               <h3 class="text-xl font-semibold text-gray-800 mb-3">
                 Mobilier de Maison
@@ -374,11 +442,9 @@
               </p>
             </div>
 
-            <!-- Carte Service 3 -->
             <div
-              class="bg-white p-8 rounded-xl shadow-lg text-center transition duration-300 hover:shadow-xl hover:scale-[1.02]"
+              class="bg-white p-8 rounded-xl shadow-lg text-center transition durée-300 hover:shadow-xl hover:scale-[1.02]"
             >
-              <!-- Remplacement de l'icône (précédente) par Font Awesome -->
               <i class="service-icon fas fa-palette mb-4"></i>
               <h3 class="text-xl font-semibold text-gray-800 mb-3">
                 Design Intérieur
@@ -392,18 +458,16 @@
         </div>
       </section>
 
-      <!-- 5. Section Nos Produits (Mobilier de Bureau et de Maison) -->
-      <section id="products" class="py-16 bg-white">
+      <!-- Produits -->
+      <section id="produits" class="py-16">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 class="text-3xl font-bold text-center text-blue-900 mb-12">
+          <h2 class="text-3xl font-bold text-center text-white mb-12">
             Nos Produits
           </h2>
 
-          <!-- ****************************** -->
-          <!-- Catégorie 1: Mobilier de Bureau -->
-          <!-- ****************************** -->
+          <!-- Mobilier de Bureau -->
           <h3
-            class="text-2xl font-bold text-blue-700 mb-6 border-b-2 border-blue-200 pb-2 flex items-center max-w-7xl mx-auto"
+            class="text-2xl font-bold text-blue-300 mb-6 border-b-2 border-blue-800 pb-2 flex items-center max-w-7xl mx-auto"
           >
             <i class="fas fa-briefcase mr-3 text-2xl"></i> Mobilier de Bureau
           </h3>
@@ -412,15 +476,14 @@
             id="office-products-grid"
             class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto mb-16"
           >
-            <!-- Produit 1.1: Bureaux Exécutifs (MAIN CARD) -->
             <div
               id="office-main-card"
-              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.02]"
+              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform transition durée-300 hover:scale-[1.02]"
             >
               <img
                 src="Bureau_1.png"
                 alt="Bureaux Exécutifs de luxe. Cliquez pour voir plus."
-                class="w-full h-48 object-cover"
+                class="w-full h-48 object-cover main-lightbox-img"
                 onerror="this.onerror=null; this.src='https://placehold.co/600x400/1e40af/ffffff?text=Bureau+Executif';"
               />
               <div class="p-4">
@@ -435,15 +498,14 @@
               </div>
             </div>
 
-            <!-- Produit 1.2: Tables de Réunion (Hidden Extra 1) -->
             <div
               id="office-extra-1"
-              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.02]"
+              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform transition durée-300 hover:scale-[1.02]"
             >
               <img
                 src="Table Reunion 1.jpg"
                 alt="Tables de Réunion modernes"
-                class="w-full h-48 object-cover"
+                class="w-full h-48 object-cover main-lightbox-img"
                 onerror="this.onerror=null; this.src='https://placehold.co/600x400/3b82f6/ffffff?text=Table+Reunion';"
               />
               <div class="p-4">
@@ -457,15 +519,14 @@
               </div>
             </div>
 
-            <!-- Produit 1.3: Postes de Travail (Hidden Extra 2) -->
             <div
               id="office-extra-2"
-              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.02]"
+              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform transition durée-300 hover:scale-[1.02]"
             >
               <img
                 src="Poste de travaille.png"
                 alt="Postes de Travail collaboratifs"
-                class="w-full h-48 object-cover"
+                class="w-full h-48 object-cover main-lightbox-img"
                 onerror="this.onerror=null; this.src='https://placehold.co/600x400/10b981/ffffff?text=Poste+Travail';"
               />
               <div class="p-4">
@@ -479,15 +540,14 @@
               </div>
             </div>
 
-            <!-- Produit 1.4: Sièges de Bureau (Hidden Extra 3) -->
             <div
               id="office-extra-3"
-              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.02]"
+              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform transition durée-300 hover:scale-[1.02]"
             >
               <img
                 src="Chaise 1.jpg"
                 alt="Sièges de bureau ergonomiques"
-                class="w-full h-48 object-cover"
+                class="w-full h-48 object-cover main-lightbox-img"
                 onerror="this.onerror=null; this.src='https://placehold.co/600x400/f3f4f6/1f2937?text=Sièges+Ergonomiques';"
               />
               <div class="p-4">
@@ -502,11 +562,9 @@
             </div>
           </div>
 
-          <!-- ****************************** -->
-          <!-- Catégorie 2: Mobilier de Maison -->
-          <!-- ****************************** -->
+          <!-- Mobilier de Maison -->
           <h3
-            class="text-2xl font-bold text-blue-700 mb-6 border-b-2 border-blue-200 pb-2 flex items-center max-w-7xl mx-auto"
+            class="text-2xl font-bold text-blue-300 mb-6 border-b-2 border-blue-800 pb-2 flex items-center max-w-7xl mx-auto"
           >
             <i class="fas fa-home mr-3 text-2xl"></i> Mobilier de Maison
           </h3>
@@ -515,15 +573,15 @@
             id="maison-products-grid"
             class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-7xl mx-auto"
           >
-            <!-- 2.1: Salons et Canapés (MAIN CARD) -->
+            <!-- Salons -->
             <div
               id="living-main-card"
-              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.02]"
+              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform transition durée-300 hover:scale-[1.02]"
             >
               <img
                 src="Salon-Belin.jpg"
                 alt="Canapés et salons de luxe. Cliquez pour voir plus."
-                class="w-full h-48 object-cover"
+                class="w-full h-48 object-cover main-lightbox-img"
                 onerror="this.onerror=null; this.src='https://placehold.co/600x400/ef4444/ffffff?text=Salon+Maison';"
               />
               <div class="p-4">
@@ -537,15 +595,14 @@
               </div>
             </div>
 
-            <!-- Salons Hidden Extra 1 -->
             <div
               id="living-extra-1"
-              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.02]"
+              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform transition durée-300 hover:scale-[1.02]"
             >
               <img
                 src="Fauteuil.jpg"
                 alt="Fauteuils design"
-                class="w-full h-48 object-cover"
+                class="w-full h-48 object-cover main-lightbox-img"
                 onerror="this.onerror=null; this.src='https://placehold.co/600x400/e9d5ff/4f46e5?text=Fauteuils+Design';"
               />
               <div class="p-4">
@@ -559,15 +616,14 @@
               </div>
             </div>
 
-            <!-- Salons Hidden Extra 2 -->
             <div
               id="living-extra-2"
-              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.02]"
+              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform durée-300 hover:scale-[1.02]"
             >
               <img
                 src="Table Basse.jpg"
                 alt="Tables basses modernes"
-                class="w-full h-48 object-cover"
+                class="w-full h-48 object-cover main-lightbox-img"
                 onerror="this.onerror=null; this.src='https://placehold.co/600x400/93c5fd/1e40af?text=Tables+Basses';"
               />
               <div class="p-4">
@@ -580,15 +636,14 @@
               </div>
             </div>
 
-            <!-- Salons Hidden Extra 3 -->
             <div
               id="living-extra-3"
-              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.02]"
+              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform durée-300 hover:scale-[1.02]"
             >
               <img
                 src="Meuble TV.jpg"
                 alt="Meubles TV et Rangement"
-                class="w-full h-48 object-cover"
+                class="w-full h-48 object-cover main-lightbox-img"
                 onerror="this.onerror=null; this.src='https://placehold.co/600x400/fce7f3/db2777?text=Meubles+Rangement';"
               />
               <div class="p-4">
@@ -601,15 +656,15 @@
               </div>
             </div>
 
-            <!-- 2.2.1: Salles à Manger (MAIN CARD) -->
+            <!-- Salles à Manger -->
             <div
               id="dining-main-card"
-              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.02]"
+              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform durée-300 hover:scale-[1.02]"
             >
               <img
                 src="Salle a manger 5.jpg"
                 alt="Salle à Manger Principale - Cliquez pour voir plus"
-                class="w-full h-48 object-cover"
+                class="w-full h-48 object-cover main-lightbox-img"
                 onerror="this.onerror=null; this.src='https://placehold.co/600x400/f59e0b/ffffff?text=S.A.M.+Principale';"
               />
               <div class="p-4">
@@ -623,15 +678,14 @@
               </div>
             </div>
 
-            <!-- Salles à Manger Hidden Extra 1 -->
             <div
               id="dining-extra-1"
-              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.02]"
+              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform durée-300 hover:scale-[1.02]"
             >
               <img
                 src="Salle a manger 2.jpg"
                 alt="Ensemble Salle à Manger Moderne Scandinave"
-                class="w-full h-48 object-cover"
+                class="w-full h-48 object-cover main-lightbox-img"
                 onerror="this.onerror=null; this.src='https://placehold.co/600x400/34d399/ffffff?text=S.A.M.+Scandinave';"
               />
               <div class="p-4">
@@ -645,15 +699,14 @@
               </div>
             </div>
 
-            <!-- Salles à Manger Hidden Extra 2 -->
             <div
               id="dining-extra-2"
-              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.02]"
+              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform durée-300 hover:scale-[1.02]"
             >
               <img
                 src="Table extens.jpg"
                 alt="Table de Banquet Grand Luxe"
-                class="w-full h-48 object-cover"
+                class="w-full h-48 object-cover main-lightbox-img"
                 onerror="this.onerror=null; this.src='https://placehold.co/600x400/ef4444/ffffff?text=S.A.M.+Luxe';"
               />
               <div class="p-4">
@@ -667,15 +720,14 @@
               </div>
             </div>
 
-            <!-- Salles à Manger Hidden Extra 3 -->
             <div
               id="dining-extra-3"
-              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.02]"
+              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform durée-300 hover:scale-[1.02]"
             >
               <img
                 src="Chaise Salon.jpg"
                 alt="Ensemble de Chaises"
-                class="w-full h-48 object-cover"
+                class="w-full h-48 object-cover main-lightbox-img"
                 onerror="this.onerror=null; this.src='https://placehold.co/600x400/99f6e4/047857?text=Chaises+Cuir';"
               />
               <div class="p-4">
@@ -688,15 +740,15 @@
               </div>
             </div>
 
-            <!-- 2.3: Chambres à Coucher (MAIN CARD) -->
+            <!-- Chambres -->
             <div
               id="bedroom-main-card"
-              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.02]"
+              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform durée-300 hover:scale-[1.02]"
             >
               <img
                 src="Chambre a Coucher.jpg"
                 alt="Chambres à coucher modernes. Cliquez pour voir plus."
-                class="w-full h-48 object-cover"
+                class="w-full h-48 object-cover main-lightbox-img"
                 onerror="this.onerror=null; this.src='https://placehold.co/600x400/34d399/ffffff?text=Chambre+Couche';"
               />
               <div class="p-4">
@@ -710,15 +762,14 @@
               </div>
             </div>
 
-            <!-- Chambres Hidden Extra 1 -->
             <div
               id="bedroom-extra-1"
-              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.02]"
+              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform durée-300 hover:scale-[1.02]"
             >
               <img
                 src="Lit king size.jpg"
                 alt="Lits King Size"
-                class="w-full h-48 object-cover"
+                class="w-full h-48 object-cover main-lightbox-img"
                 onerror="this.onerror=null; this.src='https://placehold.co/600x400/a78bfa/4c1d95?text=Lits+King+Size';"
               />
               <div class="p-4">
@@ -732,15 +783,14 @@
               </div>
             </div>
 
-            <!-- Chambres Hidden Extra 2 -->
             <div
               id="bedroom-extra-2"
-              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.02]"
+              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform durée-300 hover:scale-[1.02]"
             >
               <img
                 src="dressing.jpg"
                 alt="Armoires et Dressing"
-                class="w-full h-48 object-cover"
+                class="w-full h-48 object-cover main-lightbox-img"
                 onerror="this.onerror=null; this.src='https://placehold.co/600x400/fda4af/9f1239?text=Armoires';"
               />
               <div class="p-4">
@@ -753,15 +803,14 @@
               </div>
             </div>
 
-            <!-- Chambres Hidden Extra 3 -->
             <div
               id="bedroom-extra-3"
-              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.02]"
+              class="main-product-card bg-white rounded-xl shadow-xl overflow-hidden transform durée-300 hover:scale-[1.02]"
             >
               <img
                 src="table de nuit.jpg"
                 alt="Tables de nuit design"
-                class="w-full h-48 object-cover"
+                class="w-full h-48 object-cover main-lightbox-img"
                 onerror="this.onerror=null; this.src='https://placehold.co/600x400/9ca3af/1f2937?text=Tables+Nuit';"
               />
               <div class="p-4">
@@ -778,17 +827,19 @@
           <div class="text-center mt-12">
             <a
               href="#contact"
-              class="bg-blue-500 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-blue-600 transition-colors duration-300 transform hover:scale-105"
+              class="bg-blue-500 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-blue-600 transition-colors durée-300 transform hover:scale-105"
               >Demander un devis</a
             >
           </div>
         </div>
       </section>
 
-      <!-- 6. Section Contactez-nous (Contact) -->
-      <section id="contact" class="py-16 bg-blue-900 text-white">
+      <!-- Contact -->
+      <section id="contact" class="py-16">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+          <div
+            class="grid grid-cols-1 md:grid-cols-3 gap-12 bg-slate-950 text-white rounded-2xl p-8"
+          >
             <!-- Coordonnées -->
             <div class="md:col-span-1">
               <h3 class="text-3xl font-bold mb-6">Contactez-nous</h3>
@@ -806,14 +857,9 @@
               </p>
             </div>
 
-            <!-- Formulaire de Contact - Préparé pour recevoir les e-mails via Formspree -->
+            <!-- Formulaire -->
             <div class="md:col-span-2">
               <h3 class="text-3xl font-bold mb-6">Envoyez-nous un message</h3>
-              <!-- 
-                !! POUR QUE LE FORMULAIRE DE CONTACT FONCTIONNE: !!
-                Vous devez créer un formulaire sur Formspree en utilisant votre email sarlmondialprestige@gmail.com
-                et remplacer "YOUR_UNIQUE_FORM_ID" par le code unique que vous recevrez.
-              -->
               <form
                 action="mailto:sarlmondialprestige@gmail.com"
                 method="POST"
@@ -826,7 +872,7 @@
                     name="Nom"
                     placeholder="Nom complet"
                     required
-                    class="w-full p-3 rounded-lg bg-blue-800 border border-blue-700 placeholder-blue-300 text-white focus:ring-blue-500 focus:border-blue-500"
+                    class="w-full p-3 rounded-lg bg-slate-900 border border-slate-700 placeholder-slate-400 text-white focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>
                 <div>
@@ -835,7 +881,7 @@
                     name="Email"
                     placeholder="Votre e-mail"
                     required
-                    class="w-full p-3 rounded-lg bg-blue-800 border border-blue-700 placeholder-blue-300 text-white focus:ring-blue-500 focus:border-blue-500"
+                    class="w-full p-3 rounded-lg bg-slate-900 border border-slate-700 placeholder-slate-400 text-white focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>
                 <div>
@@ -844,12 +890,12 @@
                     placeholder="Votre message"
                     rows="4"
                     required
-                    class="w-full p-3 rounded-lg bg-blue-800 border border-blue-700 placeholder-blue-300 text-white focus:ring-blue-500 focus:border-blue-500"
+                    class="w-full p-3 rounded-lg bg-slate-900 border border-slate-700 placeholder-slate-400 text-white focus:ring-blue-500 focus:border-blue-500"
                   ></textarea>
                 </div>
                 <button
                   type="submit"
-                  class="bg-blue-500 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-blue-600 transition-colors duration-300 transform hover:scale-105"
+                  class="bg-blue-500 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-blue-600 transition-colors durée-300 transform hover:scale-105"
                 >
                   Envoyer le message
                 </button>
@@ -860,30 +906,133 @@
       </section>
     </main>
 
-    <!-- 7. Pied de Page (Footer) -->
-    <footer class="bg-gray-800 text-white py-8">
+    <!-- Footer -->
+    <footer class="bg-slate-950 border-t border-slate-800 py-6 mt-10">
       <div
-        class="container mx-auto px-4 sm:px-6 lg:px-8 text-center border-t border-gray-700 pt-4"
+        class="container mx-auto px-4 lg:px-10 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-slate-400"
       >
         <p>
-          &copy; 2025 MONDIAL PRESTIGE. Tous droits réservés. | Conçu avec
-          fierté | Designed By Badreddine Zebiri
+          © 2025 MONDIAL PRESTIGE. Tous droits réservés. | Conçu avec fierté |
+          Designed By Badreddine Zebiri
         </p>
+        <p>Mobilier de bureau & aménagement d'espaces professionnels.</p>
       </div>
     </footer>
+
+    <!-- Lightbox (عنصر overlay) -->
+    <div id="image-lightbox">
+      <span id="image-lightbox-close">&times;</span>
+      <img id="image-lightbox-img" src="" alt="Agrandissement" />
+    </div>
+
+    <!-- SCRIPTS -->
     <script>
-      const btn = document.getElementById("whatsapp-btn");
-      const modal = document.getElementById("whatsapp-modal");
+      document.addEventListener("DOMContentLoaded", () => {
+        // --- WhatsApp Modal ---
+        const btn = document.getElementById("whatsapp-btn");
+        const modal = document.getElementById("whatsapp-modal");
 
-      btn.addEventListener("click", () => {
-        modal.classList.toggle("hidden");
-      });
+        btn.addEventListener("click", () => {
+          modal.classList.toggle("hidden");
+        });
 
-      // Close popup if user clicks outside
-      document.addEventListener("click", (e) => {
-        if (!btn.contains(e.target) && !modal.contains(e.target)) {
-          modal.classList.add("hidden");
+        document.addEventListener("click", (e) => {
+          if (!btn.contains(e.target) && !modal.contains(e.target)) {
+            modal.classList.add("hidden");
+          }
+        });
+
+        // --- Mobile Menu ---
+        const mobileBtn = document.getElementById("mobile-menu-button");
+        const mobileMenu = document.getElementById("mobile-menu");
+        mobileBtn.addEventListener("click", () => {
+          mobileMenu.classList.toggle("hidden");
+        });
+
+        // --- LOGIQUE DU CARROUSEL ---
+        const carousel = document.getElementById("carousel");
+        const carouselItems = document.getElementById("carousel-items");
+        const slides = document.querySelectorAll(
+          "#carousel-items .carousel-item"
+        );
+        const prevBtn = document.getElementById("prev-btn");
+        const nextBtn = document.getElementById("next-btn");
+
+        let currentIndex = 0;
+        const totalSlides = slides.length;
+
+        function updateCarousel() {
+          const offset = -currentIndex * 100; // chaque slide = 100%
+          carouselItems.style.transform = `translateX(${offset}%)`;
         }
+
+        function showNext() {
+          currentIndex = (currentIndex + 1) % totalSlides;
+          updateCarousel();
+        }
+
+        function showPrev() {
+          currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+          updateCarousel();
+        }
+
+        if (nextBtn) {
+          nextBtn.addEventListener("click", showNext);
+        }
+
+        if (prevBtn) {
+          prevBtn.addEventListener("click", showPrev);
+        }
+
+        // Auto slide toutes les 6 secondes
+        let autoSlide = setInterval(showNext, 6000);
+
+        if (carousel) {
+          carousel.addEventListener("mouseenter", () => {
+            clearInterval(autoSlide);
+          });
+
+          carousel.addEventListener("mouseleave", () => {
+            autoSlide = setInterval(showNext, 6000);
+          });
+        }
+
+        // -------- Lightbox: تكبير الصور عند الكليك --------
+        const lightbox = document.getElementById("image-lightbox");
+        const lightboxImg = document.getElementById("image-lightbox-img");
+        const lightboxClose = document.getElementById("image-lightbox-close");
+
+        // نختار كل الصور اللي نحبها تتكبر عند الكليك
+        const clickableImages = document.querySelectorAll(".main-lightbox-img");
+
+        clickableImages.forEach((img) => {
+          img.addEventListener("click", () => {
+            lightboxImg.src = img.src;
+            lightbox.style.display = "flex";
+          });
+        });
+
+        // غلق عند الضغط على X
+        lightboxClose.addEventListener("click", () => {
+          lightbox.style.display = "none";
+          lightboxImg.src = "";
+        });
+
+        // غلق عند الضغط خارج الصورة
+        lightbox.addEventListener("click", (e) => {
+          if (e.target === lightbox) {
+            lightbox.style.display = "none";
+            lightboxImg.src = "";
+          }
+        });
+
+        // غلق بـ ESC
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && lightbox.style.display === "flex") {
+            lightbox.style.display = "none";
+            lightboxImg.src = "";
+          }
+        });
       });
     </script>
   </body>
