@@ -57,10 +57,9 @@
 
       @media (max-width: 640px) {
         body::before {
-          /* تم تعديل الحجم والشفافية لضمان ظهور الشعار على الهاتف */
-          width: 100vmin; /* كان 120vmin */
-          height: 100vmin; /* كان 120vmin */
-          opacity: 0.17; /* كان 0.03 */
+          width: 100vmin;
+          height: 100vmin;
+          opacity: 0.2;
         }
       }
 
@@ -1470,9 +1469,6 @@
         } else {
           container.classList.remove("text-right");
         }
-
-        // إعادة تحديث الكاروسيل عند تغيير اللغة
-        updateCarousel();
       }
 
       document.addEventListener("DOMContentLoaded", () => {
@@ -1507,23 +1503,10 @@
         // --- Mobile Menu ---
         const mobileBtn = document.getElementById("mobile-menu-button");
         const mobileMenu = document.getElementById("mobile-menu");
-        // اختيار جميع روابط التنقل داخل قائمة الهاتف
-        const mobileLinks = mobileMenu.querySelectorAll("a");
-
-        // وظيفة تبديل عرض/إخفاء القائمة
         mobileBtn.addEventListener("click", () => {
           mobileMenu.classList.toggle("hidden");
         });
 
-        // إغلاق قائمة الهاتف عند الضغط على أي رابط بداخلها
-        mobileLinks.forEach((link) => {
-          link.addEventListener("click", () => {
-            // تأخير بسيط (300ms) للسماح بالتمرير إلى القسم المطلوب قبل إغلاق القائمة
-            setTimeout(() => {
-              mobileMenu.classList.add("hidden");
-            }, 300);
-          });
-        });
         // --- Carrousel ---
         const carousel = document.getElementById("carousel");
         const carouselItems = document.getElementById("carousel-items");
@@ -1536,7 +1519,6 @@
         let currentIndex = 0;
         const totalSlides = slides.length;
 
-        // دالة تحديث الكاروسيل (تم تعديلها لدعم RTL)
         function updateCarousel() {
           // التحقق مما إذا كانت اللغة عربية (RTL)
           const isRTL = document.documentElement.dir === "rtl";
