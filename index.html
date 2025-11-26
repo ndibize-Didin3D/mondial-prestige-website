@@ -60,7 +60,7 @@
           /* تم تعديل الحجم والشفافية لضمان ظهور الشعار على الهاتف */
           width: 100vmin; /* كان 120vmin */
           height: 100vmin; /* كان 120vmin */
-          opacity: 0.08; /* كان 0.03 */
+          opacity: 0.17; /* كان 0.03 */
         }
       }
 
@@ -1507,10 +1507,23 @@
         // --- Mobile Menu ---
         const mobileBtn = document.getElementById("mobile-menu-button");
         const mobileMenu = document.getElementById("mobile-menu");
+        // اختيار جميع روابط التنقل داخل قائمة الهاتف
+        const mobileLinks = mobileMenu.querySelectorAll("a");
+
+        // وظيفة تبديل عرض/إخفاء القائمة
         mobileBtn.addEventListener("click", () => {
           mobileMenu.classList.toggle("hidden");
         });
 
+        // إغلاق قائمة الهاتف عند الضغط على أي رابط بداخلها
+        mobileLinks.forEach((link) => {
+          link.addEventListener("click", () => {
+            // تأخير بسيط (300ms) للسماح بالتمرير إلى القسم المطلوب قبل إغلاق القائمة
+            setTimeout(() => {
+              mobileMenu.classList.add("hidden");
+            }, 300);
+          });
+        });
         // --- Carrousel ---
         const carousel = document.getElementById("carousel");
         const carouselItems = document.getElementById("carousel-items");
