@@ -57,9 +57,10 @@
 
       @media (max-width: 640px) {
         body::before {
-          width: 120vmin;
-          height: 120vmin;
-          opacity: 0.03;
+          /* تم تعديل الحجم والشفافية لضمان ظهور الشعار على الهاتف */
+          width: 100vmin; /* كان 120vmin */
+          height: 100vmin; /* كان 120vmin */
+          opacity: 0.05; /* كان 0.03 */
         }
       }
 
@@ -1469,6 +1470,9 @@
         } else {
           container.classList.remove("text-right");
         }
+
+        // إعادة تحديث الكاروسيل عند تغيير اللغة
+        updateCarousel();
       }
 
       document.addEventListener("DOMContentLoaded", () => {
@@ -1519,6 +1523,7 @@
         let currentIndex = 0;
         const totalSlides = slides.length;
 
+        // دالة تحديث الكاروسيل (تم تعديلها لدعم RTL)
         function updateCarousel() {
           // التحقق مما إذا كانت اللغة عربية (RTL)
           const isRTL = document.documentElement.dir === "rtl";
