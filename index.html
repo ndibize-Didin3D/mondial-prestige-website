@@ -223,6 +223,54 @@
         background-color: #1d4ed8;
         color: #ffffff;
       }
+      /* ===== Contact Form Style (Dark UI) ===== */
+
+      .contact-form input,
+      .contact-form textarea {
+        width: 100%;
+        background: rgba(15, 23, 42, 0.8);
+        color: #e5e7eb;
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        padding: 12px;
+        border-radius: 10px;
+        transition: all 0.25s ease;
+      }
+
+      .contact-form input::placeholder,
+      .contact-form textarea::placeholder {
+        color: #94a3b8;
+      }
+
+      .contact-form input:focus,
+      .contact-form textarea:focus {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+        background: rgba(15, 23, 42, 1);
+      }
+
+      /* زر */
+      .contact-form button {
+        background: linear-gradient(to right, #3b82f6, #1e40af);
+        color: #ffffff;
+        padding: 12px;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        transition: 0.3s;
+      }
+
+      .contact-form button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+      }
+
+      /* رسالة النجاح */
+      #success-msg {
+        display: none;
+        color: #22c55e;
+        font-weight: 500;
+      }
     </style>
   </head>
 
